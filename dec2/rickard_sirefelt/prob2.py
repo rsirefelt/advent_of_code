@@ -3,7 +3,6 @@ import numpy as np
 with open("dec2/rickard_sirefelt/input.txt", 'r') as f:
     lines = f.readlines()
     lines = [line.strip() for line in lines]
-    found = False
     correct_line = None
 
     for l1 in range(len(lines)):
