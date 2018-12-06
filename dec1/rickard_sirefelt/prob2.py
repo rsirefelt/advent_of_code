@@ -1,7 +1,7 @@
 import numpy as np
 
 
-data = np.loadtxt("dec1/input.txt")
+data = np.loadtxt("dec1/rickard_sirefelt/input.txt")
 sum = 0
 sum_dict = {0: 1}
 
