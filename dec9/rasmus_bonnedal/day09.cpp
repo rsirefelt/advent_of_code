@@ -25,28 +25,23 @@ public:
         if (_begin == _end) {
             return *this;
         }
-        if (*this == _end) {
+        if (_end == *this) {
             Base::operator=(_begin);
         }
         Base::operator++();
-        if (*this == _end) {
+        if (_end == *this) {
             Base::operator=(_begin);
         }
         return *this;
     }
 
     circular_iterator& operator--(void) {
-        if (*this == _begin) {
+        if (_begin == *this) {
             Base::operator=(_end);
         }
         Base::operator--();
         return *this;
     }
-
-    bool operator==(Base& it) {
-        return Base::operator==(it);
-    }
-
 private:
     Base _begin, _end;
 };
