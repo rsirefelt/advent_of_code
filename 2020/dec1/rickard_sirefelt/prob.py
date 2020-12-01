@@ -4,9 +4,10 @@ x = np.loadtxt("input.txt")
 
 for i in range(x.size - 2):
     for j in range(i + 1, x.size - 1):
-        if x[i] + x[j] == 2020:
-            print(f"Ans prob1: {x[i] * x[j]}")
-        elif x[i] + x[j] < 2020:
+        sum1 = x[i] + x[j]
+        if sum1 == 2020:
+            print(f"Ans prob1: {sum1}")
+        elif sum1 < 2020:
             for k in range(j + 1, x.size):
-                if x[i] + x[j] + x[k] == 2020:
-                    print(f"Ans prob2: {x[i] * x[j] * x[k]}")
+                if sum1 + x[k] == 2020:
+                    print(f"Ans prob2: {sum1 * x[k]}")
