@@ -1,13 +1,21 @@
 # Hey!!!
 # Welcome to the day2 solution of a very handsome coding god
 
+import re
+
 
 num_valid_1 = 0
 num_valid_2 = 0
 with open("input.txt", "r") as f:
     for line in f:
+        # Python split parsing
         lim, char, passw = line.rstrip().replace(":", "").split(" ")
         d1, d2 = map(int, lim.split("-"))
+
+        # Python regexp parsing
+        p = re.compile(r"(\d+)\-(\d+) (\w): (\w+)")
+        d1, d2, char, passw = p.match(line).groups()
+        d1, d2 = int(d1), int(d2)
 
         # Part 1 password policy check
         num_char = passw.count(char)
