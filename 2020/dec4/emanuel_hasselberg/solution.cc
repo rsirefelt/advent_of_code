@@ -35,8 +35,7 @@ Record getNextRecord(std::ifstream &infile)
 
 bool isValid(Record &record)
 {
-  //cout << record["byr"] << record["iyr"] << record["eyr"] << "\n";
-  bool byrOk = stoi(record["byr"]) >= 1920 && stoi(record["byr"]) <= 2020;
+  bool byrOk = stoi(record["byr"]) >= 1920 && stoi(record["byr"]) <= 2002;
   bool iyrOk = stoi(record["iyr"]) >= 2010 && stoi(record["iyr"]) <= 2020;
   bool eyrOk = stoi(record["eyr"]) >= 2020 && stoi(record["eyr"]) <= 2030;
   std::smatch sm;
@@ -75,8 +74,6 @@ int main()
   {
     Record record = getNextRecord(infile);
 
-    cout << "processing!\n";
-    cout << "number" << record.size() << "\n";
     if (record.size() >= 8)
     {
       nbrValid++;
