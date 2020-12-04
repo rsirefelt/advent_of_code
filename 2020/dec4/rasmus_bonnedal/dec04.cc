@@ -15,9 +15,8 @@ void process_line(const std::string& line, passpt& passp) {
     std::smatch match;
     while(std::regex_search(pos, line.cend(), match, re)) {
         passp[match[1].str()] = match[2].str();
-        pos += match.length();
+        pos += match.position() + match.length();
     }
-
 }
 
 passpvec parse(const std::string& filename) {
