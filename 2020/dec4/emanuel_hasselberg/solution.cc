@@ -40,26 +40,29 @@ bool isValid(Record &record)
   bool iyrOk = stoi(record["iyr"]) >= 2010 && stoi(record["iyr"]) <= 2020;
   bool eyrOk = stoi(record["eyr"]) >= 2020 && stoi(record["eyr"]) <= 2030;
   std::smatch sm;
-  regex re("([0-9]+)(\\w*)");
+  regex re("([0-9]+)(cm|in)");
   regex_match(record["hgt"], sm, re);
-  bool hgtOk;
-  if (sm[2] == "cm")
+  bool hgtOk = false;
+  if (sm.size() > 2 && sm[2] == "cm")
   {
     hgtOk = stoi(record["hgt"]) >= 150 && stoi(record["hgt"]) <= 193;
   }
-  else
+  else if (sm.size() > 2 && sm[2] == "in")
   {
     hgtOk = stoi(record["hgt"]) >= 59 && stoi(record["hgt"]) <= 76;
   }
 
-  re = "?:#(w*)|([a-f{6}])";
+  re = "^#([\\w]{6})$";
   regex_match(record["hcl"], sm, re);
-  std::cout << "the " << sm.size() << " matches were: ";
-  for (unsigned i = 0; i < sm.size(); ++i)
-  {
-    std::cout << "[" << sm[i] << "] ";
-  }
-  return byrOk && iyrOk && eyrOk && hgtOk;
+  bool hclOk = sm.size() > 1;
+
+  re = "^(amb|blu|brn|gry|grn|hzl|oth)$";
+  bool eclOk = regex_match(record["ecl"],re);
+
+  re = "^\\d{9}$";
+  bool pidOk = regex_match(record["pid"],re);
+
+  return byrOk && iyrOk && eyrOk && hgtOk && hclOk && eclOk && pidOk;
 }
 
 int main()
@@ -95,5 +98,5 @@ int main()
     }
   }
   cout << "Nbr Valid: " << nbrValid;
-  cout << "Nbr Valid2: " << nbrValid;
+  cout << "Nbr Valid2: " << nbrValid2;
 }
