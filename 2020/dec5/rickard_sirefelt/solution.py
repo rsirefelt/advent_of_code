@@ -7,7 +7,6 @@ for s in seats.split("\n"):
 
 occ_seats_l = list(occ_seats)
 all_seats = {x for x in range(occ_seats_l[0], occ_seats_l[-1] + 1)}
-correct_seat = all_seats - occ_seats
 
 print(f"1) Maximum seat id: {occ_seats_l[-1]}")
-print(f"2) Correct seat id: {correct_seat.pop()}")
+print(f"2) Correct seat id: {(all_seats - occ_seats).pop()}")
