@@ -3,8 +3,7 @@ with open("input.txt", "r") as f:
 
 occ_seats = set()
 for s in seats.split("\n"):
-    s_id = int(s, 2)
-    occ_seats.add(s_id)
+    occ_seats.add(int(s, 2))
 
 occ_seats_l = list(occ_seats)
 all_seats = {x for x in range(occ_seats_l[0], occ_seats_l[-1] + 1)}
