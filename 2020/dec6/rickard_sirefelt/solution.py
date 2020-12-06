@@ -13,4 +13,4 @@ for grp_ans in all_ans:
     everyone_count += len(comb_set)
 
 print(f"1) Anyone answered yes count: {anyone_count}")
-print(f"1) Everyone answered yes count: {everyone_count}")
+print(f"2) Everyone answered yes count: {everyone_count}")
