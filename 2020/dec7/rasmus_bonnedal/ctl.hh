@@ -161,8 +161,11 @@ std::string strip(const std::string& str) {
     }
 }
 
-template<typename Tin, typename F, typename Tout = typename std::result_of<F(Tin)>::type>
-std::vector<Tout> map(F func, const std::vector<Tin>& values) {
+template<typename Tvecin,
+    typename F,
+    typename T = typename Tvecin::iterator::value_type,
+    typename Tout = typename std::result_of<F(T)>::type>
+std::vector<Tout> map(F func, const Tvecin& values) {
     std::vector<Tout> retval;
     retval.reserve(values.size());
     for (const auto& value: values) {
@@ -196,4 +199,9 @@ T sum(const std::vector<T>& vec) {
 template<typename T>
 void sort(std::vector<T>& vec) {
     std::sort(vec.begin(), vec.end());
+}
+
+template<typename Tvec, typename T = typename Tvec::value_type>
+size_t count(const Tvec& vec, const T& value) {
+    return std::count(vec.begin(), vec.end(), value);
 }
