@@ -9,7 +9,6 @@ struct bagrule {
     std::vector<stringint> _rules;
 };
 
-using indata = std::vector<bagrule>;
 using stringvec = std::vector<std::string>;
 using bagrulemap = std::map<std::string, std::vector<stringint>>;
 
@@ -40,8 +39,13 @@ bagrule parse_line(const std::string& line) {
     return retval;
 }
 
-indata parse(const std::string& filename) {
-    return map(parse_line, split(read_file(filename), "\n"));
+bagrulemap parse(const std::string& filename) {
+    bagrulemap brm;
+    for (const auto& line: split(read_file(filename), "\n")) {
+        bagrule br = parse_line(line);
+        brm[std::move(br._bag)] = std::move(br._rules);
+    }
+    return brm;
 }
 
 bool check_valid(const bagrulemap& brm, const std::string& bag_to_check, const std::string& bag_to_store) {
@@ -64,15 +68,11 @@ int count_required(const bagrulemap& brm, const std::string& bag, int count = 0)
 }
 
 int main(int argc, char** argv) {
-    indata data = parse("input");
-    bagrulemap brm;
-    for (auto& rule: data) {
-        brm[rule._bag] = rule._rules;
-    }
+    bagrulemap brm = parse("input");
 
     int valids = 0;
-    for (auto& rule: data) {
-        if (check_valid(brm, rule._bag, "shiny gold")) valids++;
+    for (auto& rule: brm) {
+        if (check_valid(brm, rule.first, "shiny gold")) valids++;
     }
     std::cout << "Part 1: " << valids << std::endl;
     std::cout << "Part 2: " << count_required(brm, "shiny gold") << std::endl;
