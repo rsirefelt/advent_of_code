@@ -11,13 +11,11 @@ with open("input.txt", "r") as f:
 
 instructions = np.zeros((len(instructions_txt), 2), np.int32)
 
-
 for idx, instruction_txt in enumerate(instructions_txt):
     instructions[idx, 0] = int(instruction_txt.split()[0])
     instructions[idx, 1] = int(instruction_txt.split()[1])
 
 idx_to_flip = [-1] + list(np.argwhere(abs(instructions[:, 0]) > 0).squeeze())
-flipped_idx = set()
 correct_break = False
 accumulator = [0, 0]
 for idx in idx_to_flip:
