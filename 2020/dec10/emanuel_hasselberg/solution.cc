@@ -4,39 +4,38 @@
 #include <iostream>
 #include <numeric>
 #include <algorithm>
+#include <map>
 
 using namespace std;
 
-int nbrOfLeaves(deque<int> deque, int start)
+long nbrOfLeaves(deque<int> deque, int start, std::map<int, long> &cache)
 {
-  for (int a : deque)
+  if (deque.size() == 0)
   {
-    cout << a << " ";
-  }
-  cout << "\n";
-  cout << "deque size " << deque.size() << "Start: " << start << "\n";
-
-  if (deque.size() == 1)
-  {
-    cout << "returning one\n";
     return 1;
   }
-  int leaves = 0;
-  while (deque.size() > 1 && (start - deque.front() <= 3))
+  long leaves = 0;
+  while (deque.size() > 0 && (deque.front() - start <= 3))
   {
     int value = deque.front();
-    cout << value << "\n";
     deque.pop_front();
-    leaves += nbrOfLeaves(deque, value);
-  }
-  cout << "leaves:" << leaves << "\n";
 
+    if (cache.find(value) != cache.end())
+    {
+      leaves += cache[value];
+    }
+    else
+    {
+      leaves += nbrOfLeaves(deque, value, cache);
+    }
+  }
+  cache[start] = leaves;
   return leaves;
 }
 
 int main()
 {
-  std::ifstream infile("tiny.txt");
+  std::ifstream infile("input1.txt");
   int a;
   deque<int> deque;
 
@@ -59,15 +58,12 @@ int main()
     case 3:
       nbrOf3++;
       break;
-
-    default:
-      break;
     }
     currentJolt = jolt;
   }
 
   cout << "result: " << nbrOf1 * nbrOf3 << "\n";
-
-  int result = nbrOfLeaves(deque, 0);
+  std::map<int,long> cache;
+  long result = nbrOfLeaves(deque, 0, cache);
   cout << "result2: " << result << "\n";
 }
