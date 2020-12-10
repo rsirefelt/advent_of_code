@@ -17,8 +17,7 @@ for i in range(25, len(msg)):
         break
 
 # Part 2
-i_low = 0
-i_high = 1
+i_low, i_high = 0, 1
 while True:
     sum_ = np.sum(msg[i_low : i_high + 1])
     if sum_ == invalid_num:
