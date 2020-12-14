@@ -53,15 +53,12 @@ if __name__ == "__main__":
         else:
             addr, val = inst
             addr |= mask_or
-            addr_pad = format(addr, "036b")
-            addr_float = np.array(
-                ["X" if mask[i] == "X" else addr_pad[i] for i in range(nmask)]
-            )
-            i_X = [i for i in range(nmask) if addr_float[i] == "X"]
+            addr_pad = np.array(list(format(addr, "036b")))
+            i_X = [i for i in range(nmask) if mask[i] == "X"]
             num_X = len(i_X)
             for bits in product(*[[0, 1]] * num_X):
-                addr_float[i_X] = bits
-                new_addr = int("".join(addr_float), 2)
+                addr_pad[i_X] = bits
+                new_addr = int("".join(addr_pad), 2)
                 mem[new_addr] = val
 
     print(sum(mem.values()))
