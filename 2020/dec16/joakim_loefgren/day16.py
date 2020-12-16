@@ -29,16 +29,6 @@ def parse_input(input_file):
     return rules, my_ticket, nearby_tickets
 
 
-# def validate1(rules, ticket):
-#     valid_fields = [False]*len(rules)
-#     i = 0
-#     for field, bounds in zip(ticket, rules.values()):
-#         if (bounds[0, 0] <= field <= bounds[0, 1]) \
-#         or (bounds[1, 0] <= field <= bounds[1, 1]):
-#             valid_fields[i] = True
-#     return valid_fields
-
-
 def get_invalid_fields(rules, ticket):
     inv_fields = []
     for field in ticket:
@@ -54,9 +44,7 @@ def get_invalid_fields(rules, ticket):
 
 
 if __name__ == "__main__":
-
-    rules, my_ticket, nearby_tickets = parse_input('./input_day16.txt')
-    # rules, my_ticket, nearby_tickets = parse_input("./test.txt")
+    rules, my_ticket, nearby_tickets = parse_input("./input_day16.txt")
 
     # Part I
     all_invalid_fields = []
@@ -88,13 +76,13 @@ if __name__ == "__main__":
     # the col diff will then give the index of the matching field.
     isort = np.argsort(matches.sum(axis=0))
     matches_sort = matches[:, isort]
-    matches_sort = np.hstack((matches_sort[:, 0][:,None], np.diff(matches_sort)))
+    matches_sort = np.hstack((matches_sort[:, 0][:, None], np.diff(matches_sort)))
     ifields = np.argwhere(matches_sort.T == 1)[:, 1]
     iunsort = isort.argsort()
     field_order = field_names[ifields[iunsort]]
 
     prod = 1
     for i, name in enumerate(field_order):
-        if 'departure' in name:
+        if "departure" in name:
             prod *= my_ticket[i]
     print(prod)
