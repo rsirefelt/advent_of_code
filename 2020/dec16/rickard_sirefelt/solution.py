@@ -4,7 +4,7 @@ import numpy as np
 with open("input.txt", "r") as f:
     input_ = f.read().split("\n\n")
 
-p_rule = re.compile(r"(\w+).+: (\d+)-(\d+) or (\d+)-(\d+)")
+p_rule = re.compile(r"([\w ]+): (\d+)-(\d+) or (\d+)-(\d+)")
 
 rules = []
 for line in input_[0].split("\n"):
@@ -63,7 +63,7 @@ while len(assigned_cols) != len(valid_tickets):
             if valid_col:
                 valid_cols.append(i)
         if len(valid_cols) == 1:
-            if r[0] == "departure":
+            if r[0].split()[0] == "departure":
                 departure_nums.append(my_ticket[valid_cols[0]])
             assigned_cols.append(valid_cols[0])
             del rules[j]
