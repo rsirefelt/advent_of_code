@@ -1,7 +1,3 @@
-from functools import reduce
-from itertools import repeat, starmap
-
-
 def play_game(cups_init, n_moves):
     cmin = min(cups_init)
     cmax = max(cups_init)
@@ -22,7 +18,7 @@ def play_game(cups_init, n_moves):
             else:
                 dest -= 1
 
-        after_pick3 = cups[pick3] 
+        after_pick3 = cups[pick3]
         after_dest = cups[dest]
         cups[curr] = after_pick3
         cups[dest] = pick1
@@ -36,7 +32,7 @@ if __name__ == "__main__":
 
     # Part I
     cups = play_game(cups_init, n_moves=100)
-    cups_str = ''
+    cups_str = ""
     cup = cups[1]
     for _ in range(len(cups) - 1):
         cups_str += str(cup)
@@ -45,6 +41,6 @@ if __name__ == "__main__":
 
     # Part II
     cmax = max(cups_init)
-    cups_init += list(range(cmax+1, int(1e6)+1))
+    cups_init += list(range(cmax + 1, int(1e6) + 1))
     cups = play_game(cups_init, n_moves=int(1e7))
-    print(cups[1]*cups[cups[1]])
+    print(cups[1] * cups[cups[1]])
