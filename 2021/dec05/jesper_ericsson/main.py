@@ -1,5 +1,6 @@
 import re
 import numpy as np
+import matplotlib.pyplot
 
 regex_lines = re.compile(r"([0-9]*),([0-9]*) -> ([0-9]*),([0-9]*)")
 
@@ -49,6 +50,8 @@ def prob2(lines, size):
 
     num_points = np.sum(coordinate_map > 1)
     print("Prob2, Number overlapping points:", num_points)
+    matplotlib.pyplot.imshow(coordinate_map)
+    matplotlib.pyplot.show()
 
 
 def main():
