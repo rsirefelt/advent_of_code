@@ -1,4 +1,5 @@
 import numpy as np
+import time
 
 
 def prob1(fish_array, num_iter):
@@ -31,8 +32,15 @@ def main():
     input_data = np.genfromtxt("testdata.csv", dtype=int, delimiter=",")
     input_data = np.genfromtxt("data.csv", dtype=int, delimiter=",")
 
+    start = time.time()
     prob1(input_data, 80)
+    end = time.time()
+    print(["Naive solution: ", end - start])
+
+    start = time.time()
     prob2(input_data, 256)
+    end = time.time()
+    print(["Speed up: ", end - start])
 
 
 if __name__ == "__main__":
