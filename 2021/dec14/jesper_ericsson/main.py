@@ -1,11 +1,6 @@
-import numpy as np
 from collections import deque
 import re
 import time
-import matplotlib.pyplot as plt
-
-re_coord = re.compile(r"([\d]*),([\d]*)")
-re_fold = re.compile(r"(fold along )([xy])=([\d]*)")
 
 
 def readData():
