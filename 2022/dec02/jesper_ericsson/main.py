@@ -1,4 +1,5 @@
 import numpy as np
+import os
 
 
 def read_data(filename):
@@ -83,8 +84,9 @@ def prob2(strategies):
 
 
 def main():
-    filename = "testdata.csv"
-    filename = "data.csv"
+    dir = os.path.dirname(__file__)
+    filename = dir + "/testdata.csv"
+    filename = dir + "/data.csv"
 
     strategies = read_data(filename)
 
