@@ -20,7 +20,6 @@ def priority_for_badge(group_lists: List[str]) -> int:
     return priority(list(letter)[0])
 
 
-priority('b')
 packing_lists = []
 with open('inputs/day3') as f:
     packing_lists = f.read().splitlines()
