@@ -1,18 +1,21 @@
 from collections import deque
 
-with open('./input.txt', 'r') as f:
-    data = f.read().strip()
-    
-maxlen = 14  # use 4 for part I
+# O(maxlen) in memory for fun
+maxlen = 4  # use 4 for part I
 window = deque(maxlen=maxlen)
-for c in data[:maxlen - 1]:
-    window.append(ord(c))
 
 stop = None
-for i, c in enumerate(data[maxlen - 1:]):
-    window.append(ord(c))
-    if len(set(window)) == maxlen:
-        stop = i + maxlen
-        break
-        
-print(stop)
+with open('./input.txt', 'r') as f:
+    i = 1
+    while True:
+        c = f.read(1)  # assume 1 byte/char encoding
+        if not c:
+            break
+
+        window.append(ord(c))
+        if len(set(window)) == maxlen:
+            break
+
+        i += 1
+
+print(i)
