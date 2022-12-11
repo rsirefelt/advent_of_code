@@ -1,8 +1,9 @@
+import copy
 import operator
 import re
 from collections import deque
+
 import numpy as np
-import copy
 
 OP_TABLE = {"*": operator.mul, "+": operator.add}
 
@@ -19,19 +20,10 @@ class Monkey:
 
     def operate(self, item):
         self.num_inspected += 1
-        if self.arg == 'old':
+        if self.arg == "old":
             return self.op(item, item)
         else:
             return self.op(item, int(self.arg))
-
-    def print(self):
-        print(self.items)
-        print(self.op)
-        print(self.arg)
-        print(self.div)
-        print(self.throw_true)
-        print(self.throw_false)
-
 
 
 def play_game(monkeys, num_rounds=1, reduction=None, mod=None):
