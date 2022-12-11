@@ -1,20 +1,34 @@
-import numpy as np
+import os
+
+def read_data(filename):
+    datastreams = []
+    with open(filename, "r") as f:
+        lines = f.readlines()
+        for line in lines:
+            datastreams.append(line.rstrip())
+
+    return datastreams
 
 
-def prob1(data):
-    pass
-
-
-def prob2(data):
-    pass
+def message_check(datastream, num_check):
+    for char_ind in range(num_check, len(datastream)):
+        last_four = set(datastream[char_ind-num_check:char_ind])
+        if len(last_four) == num_check:
+            return char_ind
 
 
 def main():
-    input_data = np.genfromtxt("testdata.csv", delimiter=",")
-    input_data = np.genfromtxt("data.csv", delimiter=",")
+    dir = os.path.dirname(__file__)
+    filename = dir + "/testdata.csv"
+    filename = dir + "/data.csv"
+    datastreams = read_data(filename)
 
-    prob1(input_data)
-    prob2(input_data)
+    for datastream in datastreams:
+        prob1 = message_check(datastream, 4)
+        prob2 = message_check(datastream, 14)
+
+        print(f"Prob 1, message ind: {prob1}")
+        print(f"Prob 2, message ind: {prob2}")
 
 
 if __name__ == "__main__":
