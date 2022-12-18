@@ -5,22 +5,22 @@ def compare_packets(p1, p2):
     iter_p1 = iter(p1)
     iter_p2 = iter(p2)
     while True:
-        p1_out = False
-        p2_out = False
+        p1_stop = False
+        p2_stop = False
         try:
             left = next(iter_p1)
         except StopIteration:
-            p1_out = True
+            p1_stop = True
         try: 
             right = next(iter_p2)
         except StopIteration:
-            p2_out = True
+            p2_stop = True
 
-        if p1_out and not p2_out:
+        if p1_stop and not p2_stop:
             return True
-        elif p2_out and not p1_out:
+        elif p2_stop and not p1_stop:
             return False
-        elif p1_out and p2_out:
+        elif p1_stop and p2_stop:
             return 'None'
 
         type_left, type_right = type(left), type(right)
