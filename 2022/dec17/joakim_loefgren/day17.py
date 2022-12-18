@@ -49,6 +49,7 @@ class Tetris:
         ]
         self.rock_bodies_cycle = itertools.cycle(self.rock_bodies)
         self.pile = [np.ones(7, dtype=int)]
+        self.height = 0
 
     def view(self):
         pile = self.pile.copy()
@@ -61,7 +62,6 @@ class Tetris:
             s += ''.join(row) + '\n'
         print(s)
             
-
     def push(self, rock, jet):
         pile = self.pile
         pile_z = len(self.pile) - 1
@@ -123,6 +123,7 @@ class Tetris:
             pile.extend(pile_new)
 
     def run(self, num_rocks):
+        self.height = 0
         for i, body in enumerate(itertools.islice(self.rock_bodies_cycle, num_rocks)):
             rock = Rock(body, x=2, z=len(self.pile) + 3)
             self.push(rock, next(self.jets_cycle))
@@ -131,14 +132,41 @@ class Tetris:
 
             # renormalize 
             if np.all(self.pile[-1]):
+                self.height += len(self.pile) - 1
                 self.pile = [self.pile[-1]]
                 
-        self.view()
-        # rock_next = Rock(next(self.rock_bodies_cycle))
-        # rock_next.view()
+        self.height += len(self.pile) - 1
 
 
 if __name__ == '__main__':
+
+    # part I
+    # tetris = Tetris('./input.txt')
+    # tetris.run(500000)
+    # print(tetris.height)
+
+    # part II
     tetris = Tetris('./input.txt')
-    tetris.run(2022)
-    print(len(tetris.pile) - 1)
+    # check for periodic repetitions of patterns in the pile,
+    # here I've searched look for rows with all 1s.
+
+    # initial index (index = num_rocks -1) and height
+    init = 1870
+    h_init = 2950
+
+    # period and height for period
+    period = 1715 # = 1585 + 130
+    h_period = 2690 # = 2475 + 215
+
+    target = 1000000000000
+    target_red = target - init
+    quotient = target_red // period
+    remainder = target_red % period
+
+    h_predicted = h_init + quotient*h_period
+
+    # calc height for remainer
+    tetris.run(init + period + remainder)
+    h_remainder = tetris.height - h_init - h_period
+    h_predicted += h_remainder
+    print(h_predicted)
