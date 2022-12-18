@@ -3,7 +3,6 @@ import itertools
 import copy
 
 
-
 class Rock:
     def __init__(self, body, x=2, z=None):
         """x, z are the coordinates of the rocks lower left corner"""
@@ -67,17 +66,11 @@ class Tetris:
         pile_z = len(self.pile) - 1
         end = rock.x + rock.shape[1] - 1
         if rock.x + jet < 0:
-            # print('hit left wall')
             return
         if end + jet > 6:
-            # print('hit_right wall')
             return
         if rock.z > pile_z: 
             rock.x += jet
-            # if jet == -1:
-                # print('push left')
-            # else:
-                # print('push right')
             return
         else:
             rock.x += jet
@@ -86,7 +79,6 @@ class Tetris:
                     layer_body = rock.embed(i)
                     if np.any(layer_body & pile[z]):
                         rock.x -= jet
-                        # print('blocked')
                         return
         
     def move_down(self, rock):
@@ -94,19 +86,17 @@ class Tetris:
         pile_z = len(pile) - 1
         if rock.z > pile_z + 1:
             rock.z -= 1
-            # print('move down')
             return True
         else:
             for i, z in enumerate(range(rock.z, rock.z + rock.shape[0])):
                 if z <= pile_z + 1:
                     layer_rock = rock.embed(i)
                     layer_below = pile[z - 1]
-                    if np.any(layer_rock & layer_below):  # collision found
+                    if np.any(layer_rock & layer_below):
                         self.absorb(rock)
                         return False
             
             rock.z -= 1
-            # print('move down')
             return True
 
     def absorb(self, rock):
@@ -148,13 +138,15 @@ if __name__ == '__main__':
     # part II
     tetris = Tetris('./input.txt')
     # check for periodic repetitions of patterns in the pile,
-    # here I've searched look for rows with all 1s.
+    # here I've searched for rows with all 1s.
 
     # initial index (index = num_rocks -1) and height
+    # periodicity is estalbished after (init + 1) rocks have fallen
+    # the pile is then h_init units high
     init = 1870
     h_init = 2950
 
-    # period and height for period
+    # period and height change over period
     period = 1715 # = 1585 + 130
     h_period = 2690 # = 2475 + 215
 
